@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -32,6 +36,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'books.apps.BooksConfig',
+    'bootstrap5',
+    'cloudinary',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -76,11 +83,18 @@ WSGI_APPLICATION = 'pocketbook.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'books',
+        'PASSWORD':'kaykatekruz1',
     }
 }
 
+# adding config
+cloudinary.config( 
+    cloud_name = 'dagailqvw', 
+    api_key = '688767776175743', 
+    api_secret = 'lM8iQrrJpHntJ6aNB13VIV8EYAk' 
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
