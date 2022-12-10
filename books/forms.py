@@ -4,15 +4,15 @@ from django.contrib.auth.models import User
 
 # forms
 class NewUserForm(UserCreationForm):
-    email = forms.EmailField(required=True)
-    
+    firstname = forms.CharField(required=True,widget=forms.TextInput(attrs={'class':'form-control'}))
+    lastname = forms.CharField(required=True,widget=forms.TextInput(attrs={'class':'form-control'}))
+    email  =    forms.EmailField(required=True,widget=forms.EmailInput(attrs={'class':'form-control'}))
     class Meta:
         model = User
-        fields = ("Username","email","password1","password2")
+        fields = ['username','firstname','lastname','email','password1','password2']
         
-    def save(self,commit=True):
-        user = super(NewUserForm,self).save(commit=False)
-        user.email = self.cleaned_data['email']
-        if commit:
-            user.save()
-        return user
+    def __init__(self,*args, **kwargs):
+        super(NewUserForm, self).__init__(*args,**kwargs)
+        self.fields['username'].widget.attrs['class'] = 'form-control'
+        self.fields['password1'].widget.attrs['class'] = 'form-control'
+        self.fields['password2'].widget.attrs['class'] = 'form-control'
